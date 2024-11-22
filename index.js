@@ -29,32 +29,35 @@ app.use('/api/module', moduleRoutes);
 
 
 // Swagger options
-// const swaggerOptions = {
-//   definition: { 
-//     openapi: '3.0.0', 
-//     info: {
-//       title: 'Library API Documentation',
-//       version: '1.0.0',
-//       description: 'Express Library API documentation',
-//     },
-//     servers: [
-//       {
-//         url: 'http://localhost:7000',
-//         description: 'Local server',
-//       },
-//     ],
-//   },
-//   apis: ['./routes/books.js', './routes/members.js', './routes/borrow.js'],
-// };
+const swaggerOptions = {
+  definition: { 
+    openapi: '3.0.0', 
+    info: {
+      title: 'Library API Documentation',
+      version: '1.0.0',
+      description: 'Express Library API documentation',
+    },
+    servers: [
+      {
+        url: 'http://localhost:7000',
+        description: 'Local server',
+      },
+    ],
+  },
+  apis: [
+    './routes/auth.routes.js', 
+    './routes/mentor.routes.js', 
+    './routes/module.routes.js',
+    './routes/participant.routes.js', 
+    './routes/evaluation.routes.js'
+  ],
+};
 
 // Initialize swagger-jsdoc
-// const swaggerDocs = swaggerJsdoc(swaggerOptions);
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
 // Swagger UI
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-// Routes
-// app.use('/books', bookRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 sequelize.sync().then(() => {
   console.log('Database connected');
